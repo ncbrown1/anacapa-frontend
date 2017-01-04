@@ -15,6 +15,10 @@ CREATE ROLE
 pconrad=# \q
 ```
 
+Also, edit the file `env.sh.EXAMPLE` to set the appropriate values.
+* Values for github oauth from, for example <https://github.com/settings/applications/new>
+* Create a machine account, and create a personal access token with the correct scope (user,admin:org) here: <https://github.com/settings/tokens>
+
 Then run `bundle install`, `rake db:setup` and `rake db:migrate`, `rails server`, etc. in the normal fashion.
 
 # EVERYTHING BELOW HERE WAS AUTOMATICALLY CREATED BY Rails Composer
