@@ -1,5 +1,38 @@
 <h1>New Course</h1>
 
-<%= render 'form', course: @course %>
+<p>
+  To create a new course with Anacapa Grader, you must first create and own a
+  GitHub Organization for the course with the proper name (i.e. UCSB-CS56-F16,
+  or [University]-[CourseNum]-[Term]). Select that organization below in order
+  to set it up as a course. By selecting an organization below and confirming
+  the dialog, you are enabling the Anacapa Grader to have full access to that
+  organization, including the repositories, memberships, issues, etc. Note that
+  all actions that might alter the organization will be executed by a robot user
+  that gets added to your organization as an owner once you set it up. Please
+  leave this user as an owner, or else Anacapa Grader might not work properly
+  for your course.
+</p>
+
+<h4>Organizations:</h4>
+<table class="table">
+<% @memberships.each do |m| %>
+  <tr id="org-<%= m.organization.id %>" data-id="<%= m.organization.id %>">
+    <td>
+      <a href="https://github.com/<%= m.organization.login %>"><%= m.organization.login %></a>
+      (<%= m.role %>)
+    </td>
+    <td>
+      <% if @course_names.include? m.organization.login %>
+        <button type="button" disabled>Organization is Already a Course</button>
+      <% else %>
+        <%= button_to "Setup As Course",
+                      courses_path(org_name: m.organization.login),
+                      method: :post, form_class: 'form',
+                      data: { confirm: 'Are you sure?' } %>
+      <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>
 
 <%= link_to 'Back', courses_path %>

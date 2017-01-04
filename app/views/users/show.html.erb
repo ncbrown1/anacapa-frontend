@@ -1,20 +1,2 @@
 <h3>User</h3>
 <p>Name: <%= @user.name if @user.name %></p>
-
-<h4>Organizations:</h4>
-<table class="table">
-<% @memberships.each do |m| %>
-  <tr id="org-<%= m.organization.id %>" data-id="<%= m.organization.id %>">
-    <td>
-      <a href="https://github.com/<%= m.organization.login %>"><%= m.organization.login %></a>
-      (<%= m.role %>)
-    </td>
-    <td>
-      <%= button_to "Setup this org as a course",
-                    setup_org_path(m.organization.login),
-                    method: :post, form_class: 'form',
-                    data: { confirm: 'Are you sure?' } %>
-    </td>
-  </tr>
-<% end %>
-</table>
